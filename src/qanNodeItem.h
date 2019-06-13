@@ -382,10 +382,23 @@ protected:
     /*! \name Port/Dock Layout Management *///---------------------------------
     //@{
 public:
+    //! Port type, either IN or OUT port.
+    enum class PortType {
+        //! Port accept in and out connections.
+        InOut,
+        //! Port accept only in connections (default).
+        In,
+        //! Port accept only out connections.
+        Out,
+        //! Not an actual port type, used for search purpose.
+        SearchAny,
+    };
+    Q_ENUM(PortType)
+
     using PortItems = qcm::Container<QVector, QQuickItem*>;    // Using QQuickItem instead of qan::PortItem because MSVC15 does not fully support complete c++14 forward declarations
 
     //! Look for a port with a given \c id (or nullptr if no such port exists).
-    Q_INVOKABLE qan::PortItem*  findPort(const QString& portId) const noexcept;
+    Q_INVOKABLE qan::PortItem*  findPort(const QString& portId, PortType type = PortType::SearchAny) const noexcept;
 
     //! Read-only list model of this node ports (either in or out).
     Q_PROPERTY( QAbstractListModel* ports READ getPortsModel CONSTANT FINAL )

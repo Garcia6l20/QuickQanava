@@ -74,16 +74,6 @@ public:
     /*! \name Port Properties Management *///----------------------------------
     //@{
 public:
-    //! Port type, either IN or OUT port.
-    enum class Type {
-        //! Port accept in and out connections.
-        InOut,
-        //! Port accept only in connections (default).
-        In,
-        //! Port accept only out connections.
-        Out
-    };
-    Q_ENUM(Type)
 
     //! Port acces either multiple or single in or out connections (depending on port \c type).
     enum class Multiplicity {
@@ -95,6 +85,8 @@ public:
     Q_ENUM(Multiplicity)
 
 public:
+    using Type = PortType;
+
     //! \copydoc Node in or out or in/out (default to in/out).
     Q_PROPERTY( Type type READ getType FINAL )
     //! \copydoc Type

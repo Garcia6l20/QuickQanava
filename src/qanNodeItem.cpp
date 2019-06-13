@@ -344,12 +344,13 @@ bool    NodeItem::isInsideBoundingShape( QPointF p )
 //-----------------------------------------------------------------------------
 
 /* Port/Dock Management *///---------------------------------------------------
-qan::PortItem*  NodeItem::findPort(const QString& portId) const noexcept
+qan::PortItem*  NodeItem::findPort(const QString& portId, PortType type) const noexcept
 {
     for ( const auto port : qAsConst(_ports) ) {   // Note: std::as_const is officially c++17
         const auto portItem = qobject_cast<qan::PortItem*>(port);
         if ( portItem &&
-             portItem->getId() == portId )
+             portItem->getId() == portId &&
+             ( type == PortType::SearchAny || portItem->getType() == type ))
             return portItem;
     }
     return nullptr;
