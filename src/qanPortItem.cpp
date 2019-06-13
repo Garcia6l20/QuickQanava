@@ -48,6 +48,7 @@ PortItem::PortItem(QQuickItem* parent) :
     setResizable(false);
     setDraggable(false);
     setSelectable(false);
+    setAcceptDrops(true);
     setObjectName(QStringLiteral("qan::PortItem"));
 
     setType(Type::InOut);

@@ -146,12 +146,14 @@ Qan.Connector {
             return;
         }
         // Drag.target is valid, trying to find a valid target
-        if (sourceNode && sourceNode.item) {
-            if ( Drag.target === sourceNode.item ) { // Prevent creation of a circuit on source node
+        var node = sourceNode || sourcePort
+        var item = node.item
+        if (node) {
+            if ( Drag.target === node.item ) { // Prevent creation of a circuit on source node
                 connectorItem.state = "NORMAL"
-            } else if ( sourceNode.group &&
-                        sourceNode.group.item &&
-                        Drag.target === sourceNode.group.item ) { // Prevent creation of an edge from source node to it's own group
+            } else if ( node.group &&
+                        node.group.item &&
+                        Drag.target === node.group.item ) { // Prevent creation of an edge from source node to it's own group
                 connectorItem.state = "NORMAL"
             } else {
                 // Potentially, we have a valid node or group target
