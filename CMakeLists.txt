@@ -9,10 +9,18 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 endif()
 
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Qml REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5QuickControls2 REQUIRED)
+
+if (NOT QT_QMAKE_EXECUTABLE)
+    get_target_property (QT_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+    if (NOT QT_QMAKE_EXECUTABLE)
+        message(FATAL_ERROR "Cannot find qmake")
+    endif()
+endif()
 
 add_subdirectory(GTpo)
 add_subdirectory(QuickContainers)
