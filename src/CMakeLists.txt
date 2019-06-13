@@ -60,11 +60,18 @@ set (qan_plugin_files
     ${CMAKE_CURRENT_SOURCE_DIR}/qanPlugin.h
 )
 
+# Static build ?
+option(QUICKQANAVA_STATIC "Use static QuickQanava" TRUE)
+
 # Configure Qt
 set(CMAKE_AUTOMOC ON)
 qt5_wrap_cpp(qan_source_files, qan_header_files)
 set(CMAKE_AUTORCC ON)
-list(APPEND RESOURCES QuickQanava_plugin.qrc)
+if (QUICKQANAVA_STATIC)
+    list(APPEND RESOURCES QuickQanava_static.qrc)
+else()
+    list(APPEND RESOURCES QuickQanava_plugin.qrc)
+endif()
 
 set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:QT_QML_DEBUG>)
 
@@ -80,6 +87,10 @@ target_compile_features(QuickQanava
     PUBLIC
         cxx_std_14
     )
+
+if (QUICKQANAVA_STATIC)
+    target_compile_definitions(QuickQanava PUBLIC -DQUICKQANAVA_STATIC)
+endif()
 
 install(FILES
     ${qan_header_files}
