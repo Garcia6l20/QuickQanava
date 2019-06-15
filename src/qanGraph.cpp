@@ -1078,6 +1078,16 @@ void    Graph::removeFromSelection( QQuickItem* item ) {
     }
 }
 
+void    Graph::removeSelectedItems() {
+    for (auto node: getSelectedNodes()) {
+        removeNode(node);
+    }
+    for (auto group: getSelectedGroups()) {
+        removeGroup(group);
+    }
+    clearSelection();
+}
+
 void    Graph::clearSelection()
 {
     // Note: getItem()->setSelected() actually _modify_ content

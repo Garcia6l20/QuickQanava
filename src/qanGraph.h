@@ -620,6 +620,9 @@ public:
     //! \copydoc removeFromSelection
     void            removeFromSelection( QQuickItem* item );
 
+    //! Remove all items in current selection
+    Q_INVOKABLE void removeSelectedItems();
+
     //! Clear the current selection.
     void            clearSelection();
 
